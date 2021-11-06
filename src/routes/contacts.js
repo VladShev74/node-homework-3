@@ -74,4 +74,38 @@ router.put("/:contactId", async (req, res) => {
   }
 });
 
+// PATCH - /api/contacts/:contactId
+router.patch("/:contactId", async (req, res) => {
+  try {
+    const { contactId } = req.params;
+    const contact = await Contact.findById(contactId);
+
+    if (req.body.favorite === undefined || typeof req.body.favorite !== 'boolean') {
+      return res.status(400).json({
+        message: "Missing field favorite",
+      });
+    }
+
+    if (contact) {
+      const updatedContact = await Contact.findByIdAndUpdate(
+        contactId,
+        {
+          favorite: req.body.favorite,
+        },
+        {
+          new: true,
+        }
+      );
+      res.json(updatedContact);
+    } else {
+      res.status(404).json({
+        message: "Not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

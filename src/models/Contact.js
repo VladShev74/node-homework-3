@@ -11,6 +11,10 @@ const Contact = new Schema({
   phone: {
     type: String,
   },
+  favorite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = model('contact', Contact);
