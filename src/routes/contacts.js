@@ -74,8 +74,8 @@ router.put("/:contactId", async (req, res) => {
   }
 });
 
-// PATCH - /api/contacts/:contactId
-router.patch("/:contactId", async (req, res) => {
+// PATCH - /api/contacts/:contactId/favorite
+router.patch("/:contactId/favorite", async (req, res) => {
   try {
     const { contactId } = req.params;
     const contact = await Contact.findById(contactId);
